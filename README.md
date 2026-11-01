@@ -1,38 +1,24 @@
-# NOVEMBER — Personal NNN Progress Tracker
+# NOVEMBER
 
-A simple, personal November challenge tracker. There is **no login, username, or password system**. A participant enters a display name and tracks progress in the browser they are using.
+A local-first 30-day November challenge tracker built with React, TypeScript and Vite.
 
-## Run the website locally
-1. Install Node.js (LTS).
-2. Extract this ZIP and open the `NOVEMBER` folder in VS Code.
-3. Open Terminal in that folder.
-4. Run `npm install`.
-5. Run `npm run dev`.
-6. Open the localhost address Vite prints (normally `http://localhost:5173`).
+## Privacy and storage
 
-## Deploy it
-This is a Vite project. When importing the project into a hosting provider such as Vercel, use:
-- Framework preset: **Vite**
-- Build command: `npm run build`
-- Output directory: `dist`
+NOVEMBER does not require an account and does not send check-ins to an application server. The display name and daily records are stored in the browser's localStorage on the current device. Anyone with access to the same browser profile may be able to view that local data; clearing browser storage may erase it.
 
-The repository should contain the contents of this project folder (including `package.json`), not just the ZIP file.
+The Profile page supports ordinary PDF, CSV and JSON exports, plus an encrypted backup file. Encrypted backups use PBKDF2-SHA-256 (310,000 iterations) to derive an AES-256-GCM key from a user-chosen passphrase, with a fresh random salt and IV for each backup. The passphrase is not transmitted. Restoring requires the same passphrase and replaces the local progress after confirmation. If the passphrase is lost, the backup cannot be recovered.
 
-## Included
-- Responsive personal dashboard
-- Display name only — no sign-up or login flow
-- Daily success / setback check-ins
-- Confirmation before changing an existing check-in
-- November calendar with status colours
-- Successful days, setbacks, streaks and completion percentage
-- Daily activity chart
-- PDF, CSV and JSON progress exports
-- Local browser storage and delete-data control
+Use the deployed site over HTTPS for Web Crypto support. This encryption applies to exported backup files; it does not encrypt localStorage itself.
 
-## Privacy and storage — please read
-The display name and progress are saved in the browser's `localStorage` on the current device. The app does not upload these records to a NOVEMBER server. There are no accounts and no cross-device synchronisation.
+## Development
 
-This is **not** verified zero-knowledge encryption. Anyone who can use the same browser profile may be able to view the saved data. Clearing browser data can erase it. Avoid using a shared device if the records are private, and export a backup if you want to keep a copy.
+```bash
+npm install
+npm run dev
+```
 
-## Technology
-React, TypeScript, Vite, Recharts, Lucide icons and jsPDF.
+## Production build
+
+```bash
+npm run build
+```
